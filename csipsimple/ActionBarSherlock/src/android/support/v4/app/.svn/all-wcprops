@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/1160/trunk/ActionBarSherlock/src/android/support/v4/app
+END
+ListFragment.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/1160/trunk/ActionBarSherlock/src/android/support/v4/app/ListFragment.java
+END
+LoaderManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/1160/trunk/ActionBarSherlock/src/android/support/v4/app/LoaderManager.java
+END
+ActionBar.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/1160/trunk/ActionBarSherlock/src/android/support/v4/app/ActionBar.java
+END
+Fragment.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/1160/trunk/ActionBarSherlock/src/android/support/v4/app/Fragment.java
+END
+SuperNotCalledException.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/1160/trunk/ActionBarSherlock/src/android/support/v4/app/SuperNotCalledException.java
+END
+ActivityCompatHoneycomb.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/1160/trunk/ActionBarSherlock/src/android/support/v4/app/ActivityCompatHoneycomb.java
+END
+ServiceCompat.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/1160/trunk/ActionBarSherlock/src/android/support/v4/app/ServiceCompat.java
+END
+NoSaveStateFrameLayout.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/1160/trunk/ActionBarSherlock/src/android/support/v4/app/NoSaveStateFrameLayout.java
+END
+HCSparseArray.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/1160/trunk/ActionBarSherlock/src/android/support/v4/app/HCSparseArray.java
+END
+FragmentTransaction.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/1160/trunk/ActionBarSherlock/src/android/support/v4/app/FragmentTransaction.java
+END
+FragmentActivity.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/1160/trunk/ActionBarSherlock/src/android/support/v4/app/FragmentActivity.java
+END
+DialogFragment.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/1160/trunk/ActionBarSherlock/src/android/support/v4/app/DialogFragment.java
+END
+FragmentPagerAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/1160/trunk/ActionBarSherlock/src/android/support/v4/app/FragmentPagerAdapter.java
+END
+FragmentStatePagerAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/1160/trunk/ActionBarSherlock/src/android/support/v4/app/FragmentStatePagerAdapter.java
+END
+BackStackRecord.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/1160/trunk/ActionBarSherlock/src/android/support/v4/app/BackStackRecord.java
+END
+SupportActivity.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/1160/trunk/ActionBarSherlock/src/android/support/v4/app/SupportActivity.java
+END
+FragmentManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/1160/trunk/ActionBarSherlock/src/android/support/v4/app/FragmentManager.java
+END

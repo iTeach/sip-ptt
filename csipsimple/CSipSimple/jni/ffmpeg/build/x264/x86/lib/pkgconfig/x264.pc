@@ -1,0 +1,10 @@
+prefix=/home/user/csipsimple/CSipSimple/jni/ffmpeg/build/x264/x86
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: x264
+Description: H.264 (MPEG4 AVC) encoder library
+Version: 0.122.2184 5c85e0a
+Libs: -L${exec_prefix}/lib -lx264 
+Cflags: -I${prefix}/include

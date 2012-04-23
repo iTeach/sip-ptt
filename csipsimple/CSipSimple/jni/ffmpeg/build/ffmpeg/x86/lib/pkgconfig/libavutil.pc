@@ -1,0 +1,14 @@
+prefix=/home/user/csipsimple/CSipSimple/jni/ffmpeg/build/ffmpeg/x86
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libavutil
+Description: FFmpeg utility library
+Version: 51.34.101
+Requires: 
+Requires.private: 
+Conflicts:
+Libs: -L${libdir} -lavutil -lm
+Libs.private: 
+Cflags: -I${includedir}

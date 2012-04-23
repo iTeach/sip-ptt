@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/1314/trunk/CSipSimple/jni/webrtc/patches
+END
+series
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/1314/trunk/CSipSimple/jni/webrtc/patches/series
+END
+000amreabi_r1789_bug.diff
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/1314/trunk/CSipSimple/jni/webrtc/patches/000amreabi_r1789_bug.diff
+END
