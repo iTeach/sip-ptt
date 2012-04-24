@@ -258,8 +258,10 @@ public class InCallActivity2 extends Activity implements OnTriggerListener, OnDi
 
         // Sensor management
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-        Log.d(THIS_FILE, "Proximty sensor : " + proximitySensor);
+        // FIXME: Disable proximity sensor
+        proximitySensor = null;
+        //proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        Log.d(THIS_FILE, "Proximity sensor : " + proximitySensor);
 
         dialFeedback = new DialingFeedback(this, true);
 
@@ -662,9 +664,13 @@ public class InCallActivity2 extends Activity implements OnTriggerListener, OnDi
 
     
     private boolean shouldUseTimeoutOverlay() {
+    	// FIXME Disable screen locking
+    	return false;
+    	/*
         return proximitySensor == null &&
                 proximityWakeLock == null &&
                 !Compatibility.isTabletScreen(this);
+        */
     }
     
     private synchronized void updateUIFromCall() {
