@@ -22,6 +22,17 @@
 
 package com.csipsimple.ui;
 
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import org.webrtc.videoengine.ViERenderer;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -42,6 +53,10 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.media.ToneGenerator;
+import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -83,7 +98,6 @@ import com.csipsimple.api.SipManager;
 import com.csipsimple.api.SipProfile;
 import com.csipsimple.service.SipService;
 import com.csipsimple.utils.CallsUtils;
-import com.csipsimple.utils.Compatibility;
 import com.csipsimple.utils.CustomDistribution;
 import com.csipsimple.utils.DialingFeedback;
 import com.csipsimple.utils.Log;
@@ -95,16 +109,6 @@ import com.csipsimple.widgets.InCallControls2;
 import com.csipsimple.widgets.InCallControls2.OnTriggerListener;
 import com.csipsimple.widgets.InCallInfo2;
 import com.csipsimple.widgets.ScreenLocker;
-
-import org.webrtc.videoengine.ViERenderer;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map.Entry;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class InCallActivity2 extends Activity implements OnTriggerListener, OnDialKeyListener,
         SensorEventListener, com.csipsimple.widgets.SlidingTab.OnTriggerListener {
@@ -159,6 +163,7 @@ public class InCallActivity2 extends Activity implements OnTriggerListener, OnDi
     private Button middleAddCall;
     
     // PTT
+    private ToneGenerator toneGenerator = new ToneGenerator(AudioManager.STREAM_ALARM, ToneGenerator.MAX_VOLUME);
     private Button pushToTalk;
     private native void pttButtonTouchEvent(boolean isButtonDown, int callId);
 
@@ -233,21 +238,30 @@ public class InCallActivity2 extends Activity implements OnTriggerListener, OnDi
         pushToTalk = (Button) findViewById(R.id.ptt_button);
         pushToTalk.setOnTouchListener(new OnTouchListener() {
         	public boolean onTouch(View v, MotionEvent event) {
-				// Call PTT function through JNI
 				//Log.v("PTT", "onTouch(" + event + ")");
-        		SipCallSession currentCall = getActiveCallInfo();
-        		int callId = (currentCall != null) ? currentCall.getCallId() : -1;
+        		boolean isDown = false;
         	    switch (event.getAction()) {
                 	case MotionEvent.ACTION_DOWN:
                 	case MotionEvent.ACTION_POINTER_DOWN:
-                		pttButtonTouchEvent(true, callId);
-                		break;
+                		isDown = true;
+                		// go on
                 	case MotionEvent.ACTION_UP:
                 	case MotionEvent.ACTION_POINTER_UP:
-                		pttButtonTouchEvent(false, callId);
+                		v.setPressed(isDown);
+                		toneGenerator.startTone(ToneGenerator.TONE_CDMA_KEYPAD_VOLUME_KEY_LITE);
+        				// Call PTT function through JNI after returning
+                		final SipCallSession currentCall = getActiveCallInfo();
+                		final int callId = (currentCall != null) ? currentCall.getCallId() : -1;
+                		final boolean isButtonDown = isDown;
+                    	handler.post(new Runnable() {
+							@Override
+							public void run() {
+		                		pttButtonTouchEvent(isButtonDown, callId);
+							}
+						});
                 		break;
         	    }
-				return false;
+				return true;
         	};
         });
 
@@ -465,6 +479,7 @@ public class InCallActivity2 extends Activity implements OnTriggerListener, OnDi
     private static final int UPDATE_FROM_MEDIA = 2;
     private static final int UPDATE_DRAGGING = 3;
     private static final int SHOW_SAS = 4;
+
     // Ui handler
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -934,9 +949,12 @@ public class InCallActivity2 extends Activity implements OnTriggerListener, OnDi
         }
 
         // PTT
-        pushToTalk.setVisibility((mainCallInfo != null) &&
-        		(mainCallInfo.getCallState() == SipCallSession.InvState.CONFIRMED) ?
-        		View.VISIBLE : View.GONE);
+        if ((mainCallInfo != null) &&
+        	(mainCallInfo.getCallState() == SipCallSession.InvState.CONFIRMED)) {
+        	pushToTalk.setVisibility(View.VISIBLE);
+        } else {
+        	pushToTalk.setVisibility(View.GONE);
+        }
 
         if (heldsCalls + mainsCalls == 0) {
             delayedQuit();
