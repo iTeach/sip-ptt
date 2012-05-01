@@ -18,3 +18,8 @@ JNIEXPORT void JNICALL Java_com_csipsimple_ui_InCallActivity2_pttButtonTouchEven
     }
 }
 
+JNIEXPORT void JNICALL Java_com_csipsimple_ui_InCallActivity2_onCallConfirmed(JNIEnv *env, jobject thiz, jint call_id)
+{
+    LOGI("onCallConfirmed(call_id=%d)", call_id);
+}
+

@@ -165,7 +165,9 @@ public class InCallActivity2 extends Activity implements OnTriggerListener, OnDi
     // PTT
     private ToneGenerator toneGenerator = new ToneGenerator(AudioManager.STREAM_ALARM, ToneGenerator.MAX_VOLUME);
     private Button pushToTalk;
+    private boolean lastOnCallConfirmed;
     private native void pttButtonTouchEvent(boolean isButtonDown, int callId);
+    private native void onCallConfirmed(int callId);
 
     private DisplayMetrics metrics;
     private SurfaceView cameraPreview;
@@ -1146,6 +1148,29 @@ public class InCallActivity2 extends Activity implements OnTriggerListener, OnDi
                 }
 
                 handler.sendMessage(handler.obtainMessage(UPDATE_FROM_CALL));
+
+                // PTT
+				final SipCallSession currentCall = getActiveCallInfo();
+                if ((currentCall != null) &&
+                		(currentCall.getCallState() == SipCallSession.InvState.CONFIRMED) &&
+                		(!lastOnCallConfirmed)) {
+           			lastOnCallConfirmed = true;
+           			// Switch to the speaker mode
+                	try {
+						service.setSpeakerphoneOn(true);
+					} catch (RemoteException e) {
+					}
+           			// Call onCallConfirmed function through JNI after returning
+           			handler.post(new Runnable() {
+           				@Override
+           				public void run() {
+           					onCallConfirmed(currentCall.getCallId());
+           				}
+           			});
+                } else {
+                	lastOnCallConfirmed = false;
+                }
+
             } else if (action.equals(SipManager.ACTION_SIP_MEDIA_CHANGED)) {
                 handler.sendMessage(handler.obtainMessage(UPDATE_FROM_MEDIA));
             } else if (action.equals(SipManager.ACTION_ZRTP_SHOW_SAS)) {
